@@ -1,0 +1,90 @@
+/* === RESET BÁSICO === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === ESTILO GENERAL === */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f8fa;
+  color: #333;
+  padding: 20px;
+  background-color: #333;
+}
+
+/* === TABLAS ELEMENT PLUS === */
+.el-table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+}
+
+.el-table th {
+  background-color: #f0f2f5;
+  font-weight: bold;
+  color: #444;
+}
+
+.el-table td {
+  font-size: 14px;
+  padding: 12px 8px;
+}
+
+/* === DIALOGOS / MODALES === */
+.el-dialog {
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.el-dialog__header {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  background-color: #f9fafc;
+  padding: 16px 20px;
+  border-bottom: 1px solid #ebeef5;
+}
+
+.el-dialog__body {
+  padding: 20px;
+}
+
+.el-dialog__footer {
+  background-color: #f9fafc;
+  padding: 16px 20px;
+  border-top: 1px solid #ebeef5;
+  text-align: right;
+}
+
+/* === BOTONES === */
+.el-button {
+  border-radius: 6px;
+  padding: 8px 16px;
+}
+
+.el-button--text {
+  color: #409eff;
+}
+
+/* === FORMULARIOS === */
+.el-form-item {
+  margin-bottom: 16px;
+}
+
+.el-input,
+.el-textarea {
+  border-radius: 6px;
+}
+
+/* === SCROLL PERSONALIZADO (opcional) === */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
