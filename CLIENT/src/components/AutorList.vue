@@ -70,8 +70,8 @@ const dialogLibrosVisible = ref(false)
 const librosDelAutor = ref([])
 const nombreAutorSeleccionado = ref('')
 import {ref, onMounted} from 'vue'
-import {getAllAutoresRequest, deleteAutorRequest, updateAutorRequest} from '../api/autor.api.js'
-import { getLibroByIdAutorRequest } from '../api/libro.api.js'
+import {getAllAutoresRequest, deleteAutorRequest, updateAutorRequest} from '../API/autor.api.js'
+import { getLibroByIdAutorRequest } from '../API/libro.api.js'
 const autores = ref([])
 const obtenerAutores = async () => {
     try{

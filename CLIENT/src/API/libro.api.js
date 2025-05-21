@@ -1,4 +1,4 @@
-// src/api/libro.api.js
+
 import axios from 'axios'
 
 export const getLibroByIdAutorRequest = (id_autor) => {

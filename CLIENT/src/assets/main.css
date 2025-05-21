@@ -8,18 +8,26 @@
 /* === ESTILO GENERAL === */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f7f8fa;
+  background-color: #333;
   color: #333;
   padding: 20px;
-  background-color: #333;
+  line-height: 1.5;
 }
 
 /* === TABLAS ELEMENT PLUS === */
 .el-table {
   border-radius: 8px;
-  overflow: hidden;
+  overflow-x: auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   background-color: #fff;
+  width: 100%;
+}
+
+.el-table th,
+.el-table td {
+  padding: 12px 8px;
+  font-size: 14px;
+  text-align: left;
 }
 
 .el-table th {
@@ -28,15 +36,13 @@ body {
   color: #444;
 }
 
-.el-table td {
-  font-size: 14px;
-  padding: 12px 8px;
-}
-
 /* === DIALOGOS / MODALES === */
 .el-dialog {
   border-radius: 12px;
   padding: 20px;
+  max-width: 90%;
+  width: 500px;
+  margin: auto;
 }
 
 .el-dialog__header {
@@ -63,6 +69,7 @@ body {
 .el-button {
   border-radius: 6px;
   padding: 8px 16px;
+  font-size: 14px;
 }
 
 .el-button--text {
@@ -77,9 +84,10 @@ body {
 .el-input,
 .el-textarea {
   border-radius: 6px;
+  width: 100%;
 }
 
-/* === SCROLL PERSONALIZADO (opcional) === */
+/* === SCROLL PERSONALIZADO === */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -87,4 +95,42 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: #ccc;
   border-radius: 3px;
+}
+
+/* === MEDIA QUERIES: RESPONSIVE === */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .el-table {
+    font-size: 12px;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .el-dialog {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .el-dialog__header,
+  .el-dialog__body,
+  .el-dialog__footer {
+    padding: 12px;
+  }
+
+  .el-button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .el-form-item {
+    margin-bottom: 12px;
+  }
+
+  .el-input,
+  .el-textarea {
+    font-size: 14px;
+  }
 }
