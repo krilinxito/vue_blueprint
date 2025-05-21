@@ -4,10 +4,20 @@
       <img src="@/assets/logo.svg" alt="Logo" />
       <span>Biblioteca</span>
     </div>
+    <div class="nav-links">
+      <el-button type="text" @click="goTo('/')">Paises</el-button>
+      <el-button type="text" @click="goTo('/ciudades')">Ciudades</el-button>
+    </div>
   </el-header>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+function goTo(path) {
+  router.push(path)
+}
 </script>
 
 <style scoped>
@@ -37,7 +47,11 @@
   font-size: 18px;
   color: white;
 }
-
+.nav-links
+{
+  display: flex;
+  flex-direction: row;
+}
 .nav-links .el-button {
   color: white;
   margin-left: 10px;

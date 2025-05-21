@@ -1,15 +1,13 @@
 <template>
-  <el-table :data="autores" stripe style="width: 100%">
-    <el-table-column prop="id_autor" label="ID" width="180" />
+  <el-table :data="paises" stripe style="width: 100%">
+    <el-table-column prop="id_pais" label="ID" width="180" />
     <el-table-column prop="nombre" label="Name" width="180" />
-    <el-table-column prop="nacionalidad" label="nacionalidad" />
-    <el-table-column prop="fecha_nacimiento" label="fecha_nacimiento" :formatter="formatearFecha" />
-    <el-table-column prop="biografia" label="biografia" />
+    <el-table-column prop="capital" label="capital" />
+    <el-table-column prop="continente" label="continente"  />
     <el-table-column label="acciones">
         <template #default="scope">
              <el-button @click="abrirModalEditar(scope.row)" type="text" size="small">Editar</el-button>
-            <el-button @click="EliminarAutores(scope.row.id_autor)" type="text" size="small">Eliminar</el-button>
-            <el-button @click="obtenerLibrosPorAutor(scope.row.id_autor)" type="text" size="small">Ver Libros</el-button>
+            <el-button @click="EliminarPaises(scope.row.id_pais)" type="text" size="small">Eliminar</el-button>
         </template>
 </el-table-column>
 
@@ -19,14 +17,11 @@
     <el-form-item label="Nombre">
       <el-input v-model="autorEditado.nombre" />
     </el-form-item>
-    <el-form-item label="Nacionalidad">
-      <el-input v-model="autorEditado.nacionalidad" />
+    <el-form-item label="Capital">
+      <el-input v-model="autorEditado.capital" />
     </el-form-item>
-    <el-form-item label="Fecha de nacimiento">
-      <el-date-picker v-model="autorEditado.fecha_nacimiento" type="date" placeholder="Seleccione fecha" />
-    </el-form-item>
-    <el-form-item label="Biografía">
-      <el-input type="textarea" v-model="autorEditado.biografia" />
+    <el-form-item label="Continente">
+      <el-input v-model="autorEditado.continente"/>
     </el-form-item>
   </el-form>
 
@@ -35,90 +30,52 @@
     <el-button type="primary" @click="guardarCambios">Guardar</el-button>
   </template>
 </el-dialog>
-
-<el-dialog v-model="dialogLibrosVisible" :title="`Libros de ${nombreAutorSeleccionado}`">
-  <template v-if="librosDelAutor.length > 0">
-    <el-table :data="librosDelAutor" style="width: 100%">
-    <el-table-column prop="id_libro" label="ID" width="80" />
-    <el-table-column prop="titulo" label="Título" width="180" />
-    <el-table-column prop="año_publicacion" label="Año de Publicación" width="140" />
-    <el-table-column prop="genero" label="Género" width="160" />
-    <el-table-column prop="resumen" label="Resumen" width="200" />
-    </el-table>
-  </template>
-  <template v-else>
-    <p>Este autor no tiene libros registrados.</p>
-  </template>
-
-  <template #footer>
-    <el-button @click="dialogLibrosVisible = false">Cerrar</el-button>
-  </template>
-</el-dialog>
+<br>
+<AutorAdd @newPais="obtenerPaises"></AutorAdd>
 </template>
 
 <script setup>
-function formatearFecha(row) {
-  const fecha = new Date(row.fecha_nacimiento)
-  const year = fecha.getFullYear()
-  const month = String(fecha.getMonth() + 1).padStart(2, '0')
-  const day = String(fecha.getDate()).padStart(2, '0')
-  return `${day}-${month}-${year}`
-}
+import AutorAdd from './AutorAdd.vue'
 const dialogVisible = ref(false)        
 const autorEditado = ref({})  
-const dialogLibrosVisible = ref(false)
-const librosDelAutor = ref([])
-const nombreAutorSeleccionado = ref('')
 import {ref, onMounted} from 'vue'
-import {getAllAutoresRequest, deleteAutorRequest, updateAutorRequest} from '../API/autor.api.js'
-import { getLibroByIdAutorRequest } from '../API/libro.api.js'
-const autores = ref([])
-const obtenerAutores = async () => {
+import {getAllPaisesRequest, deletePaisRequest, updatePaisRequest} from '../API/pais.api.js'
+const paises = ref([])
+const obtenerPaises = async () => {
     try{
-        const response = await getAllAutoresRequest()
-        autores.value = response.data
+        const response = await getAllPaisesRequest()
+        paises.value = response.data
     }catch (error) {
-        console.error('Error fetching autores:', error)
+        console.error('Error fetching paises:', error)
     }   
 }
-const abrirModalEditar = (autor) => {
-  autorEditado.value = { ...autor } 
+const abrirModalEditar = (pais) => {
+  autorEditado.value = { ...pais } 
   dialogVisible.value = true
 }
-const obtenerLibrosPorAutor = async (id_autor) => {
-  try {
-    dialogLibrosVisible.value = true;
-    const response = await getLibroByIdAutorRequest(id_autor)
-    librosDelAutor.value = response.data
-    const autor = autores.value.find(a => a.id_autor === id_autor)
-    nombreAutorSeleccionado.value = autor?.nombre || 'Autor desconocido'
-    dialogLibrosVisible.value = true
-  } catch (error) {
-    console.error('Error al obtener libros del autor:', error)
-  }
-}
+
 const guardarCambios = async () => {
   try {
-    await updateAutorRequest(autorEditado.value.id_autor, autorEditado.value)
+    await updatePaisRequest(autorEditado.value.id_pais, autorEditado.value)
     dialogVisible.value = false
-    await obtenerAutores()
+    await obtenerPaises()
   } catch (error) {
     console.error('Error al guardar cambios:', error)
   }
 }
-const EliminarAutores = async (id_autor) => {
+const EliminarPaises = async (id_pais) => {
   try {
-    await deleteAutorRequest(id_autor)
-    await obtenerAutores()
+    await deletePaisRequest(id_pais)
+    await obtenerPaises()
   } catch (error) {
-    console.error('Error eliminando autor:', error)
+    console.error('Error eliminando pais:', error)
   }
 }
 
 onMounted(() => {
-    obtenerAutores()
+    obtenerPaises()
 })
 defineExpose({
-    obtenerAutores,
+    obtenerPaises,
 })
 </script>
